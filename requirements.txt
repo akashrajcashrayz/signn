@@ -20,3 +20,6 @@ python-socketio
 redis
 six
 Werkzeug
+h5py
+numpy
+mediapipe
