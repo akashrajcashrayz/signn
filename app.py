@@ -102,7 +102,7 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
-def gen():
+def gen1():
   sequence = []
   sentence = []
   threshold = 0.8
@@ -183,7 +183,7 @@ def gen2():
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-def gen1():
+def gen():
     """Video streaming generator function."""
 
     app.logger.info("starting to generate frames!")
