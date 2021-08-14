@@ -177,7 +177,7 @@ def gen_frames():
         else:
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
-	    frame = pil_image_to_base64(frame)	
+		frame = pil_image_to_base64(frame)	
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
