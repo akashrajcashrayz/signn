@@ -13,11 +13,11 @@ greenlet
 gunicorn
 itsdangerous
 Jinja2
-MarkupSafe==1.1.0
+MarkupSafe
 numpy
 olefile
 opencv-python
-Pillow==4.2.1
+Pillow
 python-engineio
 python-socketio
 redis
