@@ -15,8 +15,8 @@ numpy
 olefile
 opencv-python
 Pillow
-python-engineio
-python-socketio
+python-engineio==3.13.2
+python-socketio==4.6.0 
 redis
 six
 Werkzeug
