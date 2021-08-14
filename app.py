@@ -102,7 +102,7 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
-def gen2():
+def gen():
   sequence = []
   sentence = []
   threshold = 0.8
@@ -167,7 +167,7 @@ def gen2():
       cap.release()
       cv2.destroyAllWindows()
         
-def gen():
+def gen2():
 	
     app.logger.info("starting to generate frames!")	
     while True:
