@@ -43,7 +43,7 @@ def test_message(input):
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    app.logger.info("client connected")'''
+    app.logger.info("client connected")
 
 
 @app.route('/')
