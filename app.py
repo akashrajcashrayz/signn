@@ -9,6 +9,9 @@ import h5py
 import numpy as np
 import mediapipe as mp
 import cv2
+from engineio.payload import Payload
+
+Payload.max_decode_packets = 50
 
 app = Flask(__name__)
 model = h5py.File('action.h5','r')
