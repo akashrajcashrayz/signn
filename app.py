@@ -22,14 +22,14 @@ no_sequences = 30
 sequence_length = 30
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-'''app.logger.addHandler(logging.StreamHandler(stdout))
+app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True'''
+app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
 
-'''@socketio.on('input image', namespace='/test')
+@socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
@@ -110,6 +110,9 @@ def gen():
   
   # Set mediapipe model 
   with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+  
+  
+      app.logger.info("starting to generate frames!")
       while cap.isOpened():
 
           # Read feed
