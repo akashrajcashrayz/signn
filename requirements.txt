@@ -4,7 +4,7 @@ setuptools==45
 click
 enum-compat
 enum34
-eventlet
+eventlet==0.30.2
 Flask
 Flask-SocketIO
 gevent
