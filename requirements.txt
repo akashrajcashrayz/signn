@@ -1,5 +1,6 @@
 h5py
 mediapipe 
+setuptools==45
 click==6.7
 enum-compat==0.0.2
 enum34==1.1.6
