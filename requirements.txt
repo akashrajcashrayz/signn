@@ -6,7 +6,6 @@ enum-compat
 enum34
 eventlet==0.30.2
 Flask
-Flask-SocketIO
 gevent
 gevent-websocket
 greenlet
@@ -18,8 +17,9 @@ numpy
 olefile
 opencv-python
 Pillow
-python-engineio
-python-socketio
 redis
 six
 Werkzeug
+Flask-SocketIO==4.3.1
+python-engineio==3.13.2
+python-socketio==4.6.0
