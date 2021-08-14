@@ -9,9 +9,7 @@ import h5py
 import numpy as np
 import mediapipe as mp
 import cv2
-from engineio.payload import Payload
 
-Payload.max_decode_packets = 50
 
 app = Flask(__name__)
 model = h5py.File('action.h5','r')
@@ -24,14 +22,14 @@ no_sequences = 30
 sequence_length = 30
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-#app.logger.addHandler(logging.StreamHandler(stdout))
-#app.config['SECRET_KEY'] = 'secret!'
-#app.config['DEBUG'] = True
+app.logger.addHandler(logging.StreamHandler(stdout))
+app.config['SECRET_KEY'] = 'secret!'
+app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
 
-'''@socketio.on('input image', namespace='/test')
+@socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
@@ -40,12 +38,12 @@ def test_message(input):
     image_data = "data:image/jpeg;base64," + image_data
     print("OUTPUT " + image_data)
     emit('out-image-event', {'image_data': image_data}, namespace='/test')
-    #camera.enqueue_input(base64_to_pil_image(input))'''
+    #camera.enqueue_input(base64_to_pil_image(input))
 
 
-'''@socketio.on('connect', namespace='/test')
+@socketio.on('connect', namespace='/test')
 def test_connect():
-    app.logger.info("client connected")'''
+    app.logger.info("client connected")
 
 
 @app.route('/')
@@ -179,15 +177,22 @@ def gen_frames():
             break
         else:
             ret, buffer = cv2.imencode('.jpg', frame)
-            frame = pil_image_to_base64(buffer.tobytes())
+            frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+def gen1():
+    """Video streaming generator function."""
 
+    app.logger.info("starting to generate frames!")
+    while True:
+        frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen1(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
