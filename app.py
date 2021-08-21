@@ -6,7 +6,6 @@ from flask_socketio import SocketIO, emit
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
 
-
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['SECRET_KEY'] = 'secret!'
