@@ -1,4 +1,3 @@
-h5py
 mediapipe 
 setuptools==45
 click
