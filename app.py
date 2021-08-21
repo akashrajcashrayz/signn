@@ -8,10 +8,11 @@ from utils import base64_to_pil_image, pil_image_to_base64
 import numpy as np
 import mediapipe as mp
 import cv2
-from joblib import dump, load
+import joblib 
+
 
 app = Flask(__name__)
-model = load('action.pkl') 
+model = joblib.load('action.pkl') 
 actions = np.array(['hello', 'thanks', 'iloveyou'])
 label_map = {label:num for num, label in enumerate(actions)}
 # Thirty videos worth of data
