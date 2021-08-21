@@ -5,14 +5,13 @@ from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit
 from camera import Camera
 from utils import base64_to_pil_image, pil_image_to_base64
-import h5py
 import numpy as np
 import mediapipe as mp
 import cv2
-
+from joblib import dump, load
 
 app = Flask(__name__)
-model = h5py.File('action.h5','r')
+model = load('action.pkl') 
 actions = np.array(['hello', 'thanks', 'iloveyou'])
 label_map = {label:num for num, label in enumerate(actions)}
 # Thirty videos worth of data
