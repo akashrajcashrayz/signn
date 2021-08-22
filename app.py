@@ -8,11 +8,11 @@ from utils import base64_to_pil_image, pil_image_to_base64
 import numpy as np
 import mediapipe as mp
 import cv2
-import joblib 
+from tensorflow import keras
 
 
 app = Flask(__name__)
-model = joblib.load('action.pkl') 
+model = keras.models.load_model('action (1).h5') 
 actions = np.array(['hello', 'thanks', 'iloveyou'])
 label_map = {label:num for num, label in enumerate(actions)}
 # Thirty videos worth of data
