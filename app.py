@@ -156,7 +156,7 @@ def gen():
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
           
           # Show to screen
-          cv2.imshow('open_image',image)
+          #cv2.imshow('open_image',image)
           ret, buffer = cv2.imencode('.jpg', image)  ####
           frame = buffer.tobytes()
           yield (b'--frame\r\n'
