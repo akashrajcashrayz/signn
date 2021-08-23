@@ -102,6 +102,7 @@ def prob_viz(res, actions, input_frame, colors):
     return output_frame
 cap = cv2.VideoCapture(0)
 def gen():
+  
   sequence = []
   sentence = []
   threshold = 0.8
@@ -109,9 +110,6 @@ def gen():
   
   # Set mediapipe model 
   with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
-  
-  
-      app.logger.info("starting to generate frames!")
       while cap.isOpened():
 
           # Read feed
@@ -119,19 +117,18 @@ def gen():
 
           # Make detections
           image, results = mediapipe_detection(frame, holistic)
-          print('inside')
           
           # Draw landmarks
           draw_styled_landmarks(image, results)
           
           # 2. Prediction logic
           keypoints = extract_keypoints(results)
-  #         sequence.insert(0,keypoints)
-  #         sequence = sequence[:30]
+
           sequence.append(keypoints)
           sequence = sequence[-30:]
-          
+           
           if len(sequence) == 30:
+              
               res = model.predict(np.expand_dims(np.array(sequence).flatten()  , axis=0))[0]
               print(actions[np.argmax(res)])
               
@@ -155,8 +152,8 @@ def gen():
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
           
           # Show to screen
-          #cv2.imshow('open_image',image)
-          ret, buffer = cv2.imencode('.jpg', image)  ####
+          cv2.imshow('open_image',image)
+          ret, buffer = cv2.imencode('.jpg', image)
           frame = buffer.tobytes()
           yield (b'--frame\r\n'
                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')        
@@ -168,7 +165,7 @@ def gen():
               break
       cap.release()
       cv2.destroyAllWindows()
-        
+      
 def gen2():
 	
     app.logger.info("starting to generate frames!")	
