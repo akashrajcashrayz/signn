@@ -8,12 +8,11 @@ from utils import base64_to_pil_image, pil_image_to_base64
 import numpy as np
 import mediapipe as mp
 import cv2
-from tensorflow import keras
-
+import pickle
 
 app = Flask(__name__)
-model = keras.models.load_model('action (1).h5') 
-actions = np.array(['hello', 'thanks', 'iloveyou'])
+model = pickle.load(open('dtreemodel.pkl', 'rb'))
+actions = np.array(['hello','bye','thanks', 'please','namaste','yes','no'])
 label_map = {label:num for num, label in enumerate(actions)}
 # Thirty videos worth of data
 no_sequences = 30
@@ -93,7 +92,7 @@ def extract_keypoints(results):
     rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)
     return np.concatenate([pose, face, lh, rh])
 
-colors = [(245,117,16), (117,245,16), (16,117,245)]
+colors = [(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245),(16,117,245)]
 def prob_viz(res, actions, input_frame, colors):
     output_frame = input_frame.copy()
     for num, prob in enumerate(res):
@@ -133,7 +132,7 @@ def gen():
           sequence = sequence[-30:]
           
           if len(sequence) == 30:
-              res = model.predict(np.expand_dims(sequence, axis=0))[0]
+              res = model.predict(np.expand_dims(np.array(sequence).flatten()  , axis=0))[0]
               print(actions[np.argmax(res)])
               
               
