@@ -101,7 +101,7 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
-@socketio.on( namespace='/test')
+@socketio.on('input image', namespace='/test')
 def gen():
   
   sequence = []
