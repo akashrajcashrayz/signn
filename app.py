@@ -153,19 +153,12 @@ def gen():
                         cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
           
           # Show to screen
-          cv2.imshow('open_image',image)
+          #cv2.imshow('open_image',image)
           ret, buffer = cv2.imencode('.jpg', image)
           frame = buffer.tobytes()
           yield (b'--frame\r\n'
                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')        
 
-                           
-
-          # Break gracefully
-          if cv2.waitKey(10) & 0xFF == ord('q'):
-              break
-      cap.release()
-      cv2.destroyAllWindows()
 
 def gen1():
     """Video streaming generator function."""
