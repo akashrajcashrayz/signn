@@ -28,7 +28,7 @@ socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
 
 
-#@socketio.on('input image', namespace='/test')
+@socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
