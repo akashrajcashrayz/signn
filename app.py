@@ -8,6 +8,7 @@ from utils import base64_to_pil_image, pil_image_to_base64
 import pickle
 import numpy as np
 import mediapipe as mp
+import cv2
 # import jsonify
 
 
