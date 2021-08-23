@@ -40,7 +40,7 @@ def test_message(input):
     #camera.enqueue_input(base64_to_pil_image(input))
 
 
-@socketio.on('connect', namespace='/test')
+#@socketio.on('connect', namespace='/test')
 def test_connect():
     app.logger.info("client connected")
 
@@ -101,7 +101,7 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
-@socketio.on('input image', namespace='/test')
+#@socketio.on('input image', namespace='/test')
 def gen():
   
   sequence = []
