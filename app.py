@@ -10,7 +10,12 @@ import mediapipe as mp
 import cv2
 import pickle
 
+
 app = Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(stdout))
+app.config['DEBUG'] = True
+socketio = SocketIO(app)
+camera = Camera(Makeup_artist())
 model = pickle.load(open('dtreemodel.pkl', 'rb'))
 actions = np.array(['hello','bye','thanks', 'please','namaste','yes','no'])
 label_map = {label:num for num, label in enumerate(actions)}
@@ -21,14 +26,8 @@ no_sequences = 30
 sequence_length = 30
 mp_holistic = mp.solutions.holistic # Holistic model
 mp_drawing = mp.solutions.drawing_utils # Drawing utilities
-app.logger.addHandler(logging.StreamHandler(stdout))
-app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
-socketio = SocketIO(app)
-camera = Camera(Makeup_artist())
 
-
-#@socketio.on('input image', namespace='/test')
+@socketio.on('input image', namespace='/test')
 def test_message(input):
     input = input.split(",")[1]
     camera.enqueue_input(input)
@@ -40,7 +39,7 @@ def test_message(input):
     #camera.enqueue_input(base64_to_pil_image(input))
 
 
-#@socketio.on('connect', namespace='/test')
+@socketio.on('connect', namespace='/test')
 def test_connect():
     app.logger.info("client connected")
 
@@ -101,7 +100,6 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
-@socketio.on('input image', namespace='/test')
 def gen():
   
   sequence = []
@@ -158,14 +156,6 @@ def gen():
           frame = buffer.tobytes()
           yield (b'--frame\r\n'
                  b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')        
-
-                           
-
-          # Break gracefully
-          if cv2.waitKey(10) & 0xFF == ord('q'):
-              break
-      cap.release()
-      cv2.destroyAllWindows()
       
 def gen2():
 	
@@ -192,7 +182,7 @@ def gen1():
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen1(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
