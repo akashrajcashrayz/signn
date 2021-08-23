@@ -1,5 +1,5 @@
 from sys import stdout
-from process import webopencv
+from makeup_artist import Makeup_artist
 import logging
 from flask import Flask, render_template, Response, request, jsonify
 from flask_socketio import SocketIO
@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
-camera = Camera(webopencv())
+camera = Camera(Makeup_artist())
 
 #---------------- Video Transmission --------------------------------#
 
