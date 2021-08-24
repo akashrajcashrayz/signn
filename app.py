@@ -143,8 +143,9 @@ def gen():
           frame = readb64(frame)
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
           print(frame.shape) 
+          frame = cv2.resize(frame,(640,480))  
           
-          #print(frame)
+          print(frame.shape)
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
