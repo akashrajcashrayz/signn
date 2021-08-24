@@ -30,9 +30,10 @@
     </head>
     <body>
         <div id="container">
-            <video autoplay="true" id="videoElement">
-            </video>
-            <img id="imageElement" src="{{ url_for('video_feed') }}">
+            <img id="imageElement" src="/video_feed" style="
+                height: 60%;
+                width: 60%;
+            ">
             <canvas id="canvasElement"></canvas>
         </div>
 
