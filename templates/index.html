@@ -30,10 +30,7 @@
     </head>
     <body>
         <div id="container">
-            <img id="imageElement" src="/video_feed" style="
-                height: 60%;
-                width: 60%;
-            ">
+            <img id="imageElement" src="{{ url_for('video_feed') }}">
             <canvas id="canvasElement"></canvas>
         </div>
 
