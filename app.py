@@ -143,15 +143,12 @@ def gen():
           frame = readb64(frame)
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
           print(frame.shape) 
-          ret, buffer = cv2.imencode('.jpg', frame)
-          frame = buffer.tobytes()            
-          yield (b'--frame\r\n'
-                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')              
+          
           #print(frame)
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
-'''          image, results = mediapipe_detection(frame, holistic)
+          image, results = mediapipe_detection(frame, holistic)
           
           # Draw landmarks
           draw_styled_landmarks(image, results)
@@ -189,8 +186,9 @@ def gen():
           # Show to screen
           #cv2.imshow('open_image',image)
           ret, buffer = cv2.imencode('.jpg', image)
-          frame = buffer.tobytes()'''
-      
+          frame = buffer.tobytes()
+          yield (b'--frame\r\n'
+                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')       
 
 
 def gen1():
