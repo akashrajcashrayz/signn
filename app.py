@@ -139,7 +139,7 @@ def gen():
           frame = camera.get_frame()
           print(frame)  
           print('////////////////////////')
-          frame = base64.b64encode(frame).decode('ascii')
+          #frame = base64.b64encode(frame).decode('ascii')
           frame = readb64(frame)
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
           print(frame) 
