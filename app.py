@@ -13,7 +13,7 @@ import cv2
 import base64
 from PIL import Image
 import cv2
-from StringIO import StringIO
+from io import StringIO
 import numpy as np
 
 #----------------- Video Transmission ------------------------------#
