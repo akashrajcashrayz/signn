@@ -11,7 +11,10 @@ import mediapipe as mp
 import cv2
 # import jsonify
 import base64
-
+from PIL import Image
+import cv2
+from StringIO import StringIO
+import numpy as np
 
 #----------------- Video Transmission ------------------------------#
 app = Flask(__name__)
@@ -104,6 +107,16 @@ def prob_viz(res, actions, input_frame, colors):
         
     return output_frame
 cap = cv2.VideoCapture(0)
+
+
+def readb64(base64_string):
+    sbuf = StringIO()
+    sbuf.write(base64.b64decode(base64_string))
+    pimg = Image.open(sbuf)
+    return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
+
+
+
 def gen():
   print("in gen")
   sequence = []
@@ -119,7 +132,7 @@ def gen():
           # Read feed
           #ret, frame = cap.read()
           frame = camera.get_frame()
-          frame = cv2.imdecode(frame,IMREAD_ANYCOLOR)  
+          frame = readb64(frame)
           print(frame)
           #frame = base64_to_pil_image(frame)  
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
