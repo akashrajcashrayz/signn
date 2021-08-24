@@ -112,7 +112,7 @@ cap = cv2.VideoCapture(0)
 
 
 def readb64(base64_string):
-    sbuf = BytesIO()
+    sbuf = StringIO()
     #sbuf.write(base64.b64decode(base64_string))
     sbuf.write(base64_string)
     pimg = Image.open(sbuf)
