@@ -143,7 +143,8 @@ def gen():
           frame = readb64(frame)
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
           print(frame.shape) 
-            
+          yield (b'--frame\r\n'
+                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')              
           #print(frame)
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
@@ -187,8 +188,7 @@ def gen():
           #cv2.imshow('open_image',image)
           ret, buffer = cv2.imencode('.jpg', image)
           frame = buffer.tobytes()'''
-          yield (b'--frame\r\n'
-                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')        
+      
 
 
 def gen1():
