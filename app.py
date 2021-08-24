@@ -4,6 +4,7 @@ import logging
 from flask import Flask, render_template, Response, request, jsonify
 from flask_socketio import SocketIO
 from camera import Camera
+import binascii
 from utils import base64_to_pil_image, pil_image_to_base64
 import pickle
 import numpy as np
