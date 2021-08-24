@@ -15,6 +15,7 @@ import base64
 from PIL import Image
 import cv2
 from io import StringIO
+from io import BytesIO
 import numpy as np
 
 #----------------- Video Transmission ------------------------------#
@@ -111,7 +112,7 @@ cap = cv2.VideoCapture(0)
 
 
 def readb64(base64_string):
-    sbuf = StringIO()
+    sbuf = BytesIO()
     sbuf.write(base64.b64decode(base64_string))
     pimg = Image.open(sbuf)
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
@@ -133,7 +134,7 @@ def gen():
           # Read feed
           #ret, frame = cap.read()
           frame = camera.get_frame()
-          frame = binascii.b2a_base64(frame)
+          #frame = binascii.b2a_base64(frame)
           print(frame) 
           frame = readb64(frame)  
           print(frame)
