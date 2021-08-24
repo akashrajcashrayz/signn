@@ -134,10 +134,10 @@ def gen():
           # Read feed
           #ret, frame = cap.read()
           frame = camera.get_frame()
-          #frame = binascii.b2a_base64(frame)
+          frame = binascii.a2b_base64(frame)
           print(frame) 
-          frame = readb64(frame)  
-          print(frame)
+          #frame = readb64(frame)  
+          #print(frame)
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
