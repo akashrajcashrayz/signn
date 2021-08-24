@@ -119,6 +119,7 @@ def gen():
           # Read feed
           #ret, frame = cap.read()
           frame = camera.get_frame()
+          frame = cv2.imdecode(img)  
           #frame = base64_to_pil_image(frame)  
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
@@ -179,7 +180,7 @@ def gen1():
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen1(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
