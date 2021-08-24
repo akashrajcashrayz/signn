@@ -135,9 +135,10 @@ def gen():
           #ret, frame = cap.read()
           frame = camera.get_frame()
           frame = binascii.a2b_base64(frame)
-          frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+          frame = readb64(frame)
+          #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
           print(frame) 
-          #frame = readb64(frame)  
+            
           #print(frame)
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
