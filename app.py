@@ -112,10 +112,12 @@ cap = cv2.VideoCapture(0)
 
 
 def readb64(base64_string):
-    sbuf = StringIO()
+    sbuf = StringIO(base64_string)
     #sbuf.write(base64.b64decode(base64_string))
-    sbuf.write(base64_string)
-    pimg = Image.open(BytesIO(sbuf))
+    sbuf = sbuf.read().encode('utf8')
+    #sbuf.write(base64_string)
+    sbuf = BytesIO(sbuf)
+    pimg = Image.open(sbuf)
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 
