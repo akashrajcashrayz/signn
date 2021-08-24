@@ -171,6 +171,7 @@ def gen1():
     app.logger.info("starting to generate frames!")
     while True:
         frame = camera.get_frame() #pil_image_to_base64(camera.get_frame())
+        print(frame)
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
@@ -178,7 +179,7 @@ def gen1():
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen1(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':
