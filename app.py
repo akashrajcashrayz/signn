@@ -119,7 +119,7 @@ def gen():
           # Read feed
           #ret, frame = cap.read()
           frame = camera.get_frame()
-          frame = cv2.imdecode(img)  
+          frame = cv2.imdecode(frame)  
           print(frame)
           #frame = base64_to_pil_image(frame)  
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
