@@ -115,7 +115,7 @@ def readb64(base64_string):
     sbuf = StringIO()
     #sbuf.write(base64.b64decode(base64_string))
     sbuf.write(base64_string)
-    pimg = Image.open(sbuf)
+    pimg = Image.open(BytesIO(sbuf))
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 
