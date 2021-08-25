@@ -162,7 +162,7 @@ def gen():
            
           if len(sequence) == 30:
               
-              res = model.predict(np.expand_dims(np.array(sequence).flatten()  , axis=0))[0]
+              res = model.predict(np.array(sequence).reshape(1, (np.array(sequence).shape[0]*np.array(sequence).shape[1])))[0]
               print(actions[np.argmax(res)])
               
               
