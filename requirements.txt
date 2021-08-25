@@ -1,4 +1,4 @@
-mediapipe 
+mediapipe==0.8.6.2
 setuptools==45
 click
 enum-compat
