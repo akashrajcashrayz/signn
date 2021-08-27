@@ -24,7 +24,7 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
-model = loaded_model = pickle.load(open('dtreemodel.pkl', 'rb'))
+model = loaded_model = pickle.load(open('random120.pkl', 'rb'))
 #model = keras.models.load_model('actionpro1.h5',compile = False)
 actions = np.array(['hello','bye','thanks', 'please','namaste','yes','no'])
 #model = keras.models.load_model('action (1).h5',compile = False)
