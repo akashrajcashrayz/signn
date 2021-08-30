@@ -122,7 +122,9 @@ def readb64(base64_string):
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 
-
+cap = cv2.VideoCapture()
+if cap.isOpened() = True:
+    print("can use opencv")
 def gen():
   print("in gen")
   sequence = []
