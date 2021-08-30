@@ -148,11 +148,8 @@ def gen():
           
           print(frame.shape)
           cap = cv2.VideoCapture()
-          if cap.isOpened() == True:
-            
-             print("can use opencv")
-          else:
-             print("can't use opencv")  
+          ret, frame = cap.read()
+         
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
