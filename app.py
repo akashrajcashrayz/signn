@@ -122,11 +122,7 @@ def readb64(base64_string):
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
 
-cap = cv2.VideoCapture()
-if cap.isOpened() == True:
-    print("can use opencv")
-else:
-    print("can't use opencv")    
+  
 def gen():
   print("in gen")
   sequence = []
@@ -151,6 +147,12 @@ def gen():
           frame = cv2.resize(frame,(640,480))  
           
           print(frame.shape)
+          cap = cv2.VideoCapture()
+          if cap.isOpened() == True:
+            
+             print("can use opencv")
+          else:
+             print("can't use opencv")  
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
           # Make detections
