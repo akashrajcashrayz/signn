@@ -125,6 +125,8 @@ def readb64(base64_string):
 cap = cv2.VideoCapture()
 if cap.isOpened() == True:
     print("can use opencv")
+else:
+    print("can't use opencv")    
 def gen():
   print("in gen")
   sequence = []
