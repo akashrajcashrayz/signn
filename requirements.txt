@@ -14,7 +14,7 @@ Jinja2
 MarkupSafe
 numpy
 olefile
-opencv-python
+opencv-contrib-python
 Pillow
 redis
 six
