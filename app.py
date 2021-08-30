@@ -147,8 +147,6 @@ def gen():
           frame = cv2.resize(frame,(640,480))  
           
           print(frame.shape)
-          cap = cv2.VideoCapture()
-          ret, frame = cap.read()
          
         
           #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
