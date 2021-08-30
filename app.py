@@ -123,7 +123,7 @@ def readb64(base64_string):
 
 
 cap = cv2.VideoCapture()
-if cap.isOpened() = True:
+if cap.isOpened() == True:
     print("can use opencv")
 def gen():
   print("in gen")
