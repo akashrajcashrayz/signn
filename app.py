@@ -24,7 +24,7 @@ app.logger.addHandler(logging.StreamHandler(stdout))
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 camera = Camera(Makeup_artist())
-model = loaded_model = pickle.load(open('random120.pkl', 'rb'))
+model = loaded_model = pickle.load(open('random1200.pkl', 'rb'))
 #model = keras.models.load_model('actionpro1.h5',compile = False)
 #actions = np.array(['hello','bye','thanks', 'please','namaste','yes','no'])
 actions = np.array(['thanks', 'please','namaste'])
@@ -169,7 +169,7 @@ def gen():
               
               
           #3. Viz logic
-              if res[np.argmax(res)] > threshold: 
+              if (res[0] > 0.5) or (res[1] > 0.96) or (res[2] > 0.8) :  
                   if len(sentence) > 0: 
                       if actions[np.argmax(res)] != sentence[-1]:
                           sentence.append(actions[np.argmax(res)])
