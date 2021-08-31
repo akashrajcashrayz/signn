@@ -127,7 +127,7 @@ def gen():
   print("in gen")
   sequence = []
   sentence = []
-  threshold = 0.8
+  threshold = 0.6
 
   
   # Set mediapipe model 
