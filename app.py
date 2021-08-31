@@ -169,7 +169,7 @@ def gen():
               
               
           #3. Viz logic
-              if (res[0] > 0.5) or (res[1] > 0.96) or (res[2] > 0.8) :  
+              if (res[0] > 0.5) or (res[1] > 0.96) or (res[2] > 0.7) :  
                   if len(sentence) > 0: 
                       if actions[np.argmax(res)] != sentence[-1]:
                           sentence.append(actions[np.argmax(res)])
