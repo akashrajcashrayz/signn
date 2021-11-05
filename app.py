@@ -17,7 +17,7 @@ import cv2
 from io import StringIO
 from io import BytesIO
 import numpy as np
-
+import time
 #----------------- Video Transmission ------------------------------#
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(stdout))
