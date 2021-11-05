@@ -121,7 +121,8 @@ def readb64(base64_string):
     pimg = Image.open(sbuf)
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
-
+frame_rate = 24
+prev = 0
   
 def gen():
   print("in gen")
@@ -133,65 +134,69 @@ def gen():
   # Set mediapipe model 
   with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
       while True:
-           
+          time_elapsed = time.time() - prev           
 
           # Read feed
           #ret, frame = cap.read()
-          frame = camera.get_frame()
+          
           #print(frame)  
           print('////////////////////////')
           #frame = base64.b64encode(frame).decode('ascii')
-          frame = readb64(frame)
-          #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-          print(frame.shape) 
-          frame = cv2.resize(frame,(640,480))  
-          
-          print(frame.shape)
-         
-        
-          #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
-          # Make detections
-          image, results = mediapipe_detection(frame, holistic)
-          
-          # Draw landmarks
-          draw_styled_landmarks(image, results)
-          
-          # 2. Prediction logic
-          keypoints = extract_keypoints(results)
+          if time_elapsed > 1./frame_rate:
+              frame = camera.get_frame()  
+                
+              prev = time.time()
+              frame = readb64(frame)
+              #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+              print(frame.shape) 
+              frame = cv2.resize(frame,(640,480))  
 
-          sequence.append(keypoints)
-          sequence = sequence[-30:]
-           
-          if len(sequence) == 30:
-              
-              res = model.predict_proba(np.array(sequence).reshape(1, (np.array(sequence).shape[0]*np.array(sequence).shape[1])))[0]
-              print(actions[np.argmax(res)])
-              
-              
-          #3. Viz logic
-              if (res[0] > 0.5) or (res[1] > 0.96) or (res[2] > 0.6) :  
-                  if len(sentence) > 0: 
-                      if actions[np.argmax(res)] != sentence[-1]:
+              print(frame.shape)
+
+
+              #frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  
+              # Make detections
+              image, results = mediapipe_detection(frame, holistic)
+
+              # Draw landmarks
+              draw_styled_landmarks(image, results)
+
+              # 2. Prediction logic
+              keypoints = extract_keypoints(results)
+
+              sequence.append(keypoints)
+              sequence = sequence[-30:]
+
+              if len(sequence) == 30:
+
+                  res = model.predict_proba(np.array(sequence).reshape(1, (np.array(sequence).shape[0]*np.array(sequence).shape[1])))[0]
+                  print(actions[np.argmax(res)])
+
+
+              #3. Viz logic
+                  if (res[0] > 0.5) or (res[1] > 0.96) or (res[2] > 0.6) :  
+                      if len(sentence) > 0: 
+                          if actions[np.argmax(res)] != sentence[-1]:
+                              sentence.append(actions[np.argmax(res)])
+                      else:
                           sentence.append(actions[np.argmax(res)])
-                  else:
-                      sentence.append(actions[np.argmax(res)])
 
-              if len(sentence) > 5: 
-                  sentence = sentence[-5:]
+                  if len(sentence) > 5: 
+                      sentence = sentence[-5:]
 
-              # Viz probabilities
-              image = prob_viz(res, actions, image, colors)
-              
-          cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
-          cv2.putText(image, ' '.join(sentence), (3,30), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-          
-          # Show to screen
-          #cv2.imshow('open_image',image)
-          ret, buffer = cv2.imencode('.jpg', image)
-          frame = buffer.tobytes()
-          yield (b'--frame\r\n'
-                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')       
+                  # Viz probabilities
+                  image = prob_viz(res, actions, image, colors)
+
+              cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
+              cv2.putText(image, ' '.join(sentence), (3,30), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+              # Show to screen
+              #cv2.imshow('open_image',image)
+              ret, buffer = cv2.imencode('.jpg', image)
+              frame = buffer.tobytes()
+              yield (b'--frame\r\n'
+                     b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')       
 
 
 def gen1():
