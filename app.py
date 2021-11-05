@@ -143,8 +143,9 @@ def gen():
           #print(frame)  
           print('////////////////////////')
           #frame = base64.b64encode(frame).decode('ascii')
-          frame = camera.get_frame()
+          
           if time_elapsed > 1./frame_rate:
+              frame = camera.get_frame()
                 
                 
               prev = time.time()
