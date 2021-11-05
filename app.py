@@ -121,8 +121,7 @@ def readb64(base64_string):
     pimg = Image.open(sbuf)
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
-frame_rate = 24
-prev = 0
+
   
 def gen():
   print("in gen")
@@ -133,6 +132,8 @@ def gen():
   
   # Set mediapipe model 
   with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+      frame_rate = 24
+      prev = 0
       while True:
           time_elapsed = time.time() - prev           
 
@@ -142,8 +143,9 @@ def gen():
           #print(frame)  
           print('////////////////////////')
           #frame = base64.b64encode(frame).decode('ascii')
+          frame = camera.get_frame()
           if time_elapsed > 1./frame_rate:
-              frame = camera.get_frame()  
+                
                 
               prev = time.time()
               frame = readb64(frame)
